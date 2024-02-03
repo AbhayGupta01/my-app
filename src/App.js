@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import DynamicFields from './components/DynamicFields';
+import DisplayFields from './components/DisplayFields';
 
-function App() {
+const App = () => {
+  const fields = useSelector((state) => state.fields);
+  const dispatch = useDispatch();
+
+  const addField = (field) => {
+    dispatch({ type: 'ADD_FIELD', payload: field });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <DynamicFields fields={fields} onFieldAdd={addField} />
+      <DisplayFields fields={fields} />
     </div>
   );
-}
+};
 
 export default App;
